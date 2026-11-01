@@ -1,4 +1,3 @@
-# ai-db-cloud-showcase-2026f
 # AI, Databases, and Cloud Computing — Project Showcase (Fall 2026)
 
 Welcome to the **Fall 2026 AI, Databases, and Cloud Computing Project Showcase** at the University of North Carolina at Charlotte.
