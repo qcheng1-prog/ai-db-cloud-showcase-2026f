@@ -484,7 +484,7 @@
     </div>
 
     <!-- Project Cards Grid -->
-    <h2 class="section-title">Student Project Briefs (7 Teams)</h2>
+    <h2 class="section-title">Student Project Briefs (7 Team Projects and One Industry Project)</h2>
     <div class="grid" id="project-grid">
 
       <!-- Team 1 -->
@@ -741,8 +741,45 @@
         </div>
       </div>
 
+    <!-- Team 8 -->
+      <div class="card" onclick="selectProject(this, 'Team 8: CoursePilot', 'teams/course-pilot/team8-music.mp3')">
+        <div>
+          <div class="card-media-wrapper">
+            <div class="vinyl-wrapper">
+              <div class="vinyl-frame">
+                <img src="teams/course-pilot/team8-story.png" alt="Team 8 Architecture">
+              </div>
+              <!-- <div class="play-btn-overlay" title="Play / Pause Team Audio">
+                <div class="play-icon"></div>
+                <div class="pause-icon"><span></span><span></span></div>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="card-header">
+            <h3><span class="team-badge">Team 8</span> StudyOnTime: Unified Academic Study Platform</h3>
+            <div class="card-sound-badge"><span></span><span></span><span></span></div>
+          </div>
+          <div class="team">Essey Beraki</div>
+          <p>Fragmented course materials and LMS pages make finding relevant study data difficult for students. StudyOnTime unifies Canvas API data and PDFs into an end-to-end cloud platform—using asynchronous ETL pipelines and page-cited RAG—to deliver instant, source-traceable Q&A with strict tenant isolation and controlled operating costs.</p>
+          <div class="tags">
+            <span class="tag">pgvector</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Canvas API</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="links" onclick="event.stopPropagation();">
+          <!-- <a href="teams/course-pilot/team8-brief.pdf">Poster PDF</a> -->
+          <!-- <a href="teams/course-pilot/team8-arch.pdf">Architecture</a> -->
+          <!-- <a href="https://github.com/caymanpowell/CoursePilot" target="_blank">Git Repo (private)</a> -->
+        </div>
+      </div>
     </div>
   </div>
+
+</div>
+</div>
 
   <!-- FLOATING WIDGET -->
   <div id="audio-widget" onclick="togglePlayback()">
