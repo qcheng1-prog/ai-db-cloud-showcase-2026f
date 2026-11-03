@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ITAI 4160 / 5160: Databases & Cloud for AI — Project Showcase</title>
+  <style>
+    :root {
+      --primary: #005035;       /* UNC Charlotte Forest Green */
+      --primary-dark: #003a27;
+      --accent: #A49665;        /* Charlotte Gold Accent */
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0 0 110px 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 3.2rem 1.5rem 2.8rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 0.4rem;
+      font-size: 2.1rem;
+    }
+
+    header p {
+      margin: 0.2rem 0;
+      font-size: 1.05rem;
+      opacity: 0.92;
+    }
+
+    .meta-info {
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+      opacity: 0.85;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-top: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .instruction-note {
+      background: #f1f5f9;
+      border-left: 4px solid var(--accent);
+      padding: 0.85rem 1.2rem;
+      font-size: 0.92rem;
+      margin-bottom: 2rem;
+      border-radius: 0 6px 6px 0;
+      color: #334155;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    /* Project Cards */
+    .card {
+      background: var(--card-bg);
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px -2px rgba(0,0,0,0.1);
+      border-color: #cbd5e1;
+    }
+
+    .card.is-playing {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 80, 53, 0.18), 0 8px 16px -2px rgba(0, 0, 0, 0.12);
+      background: #fafdfb;
+    }
+
+    /* ----------------------------------------------------
+       CIRCULAR VINYL ARCHITECTURE PREVIEW (Like Dr. Yang's)
+       ---------------------------------------------------- */
+    .card-media-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .vinyl-wrapper {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 0.6rem;
+    }
+
+    .vinyl-frame {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 6px solid #111827; /* Dark vinyl record ring */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22), inset 0 0 8px rgba(0,0,0,0.6);
+      overflow: hidden;
+      background: #0f172a;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: spin 6s linear infinite;
+      animation-play-state: paused;
+    }
+
+    .vinyl-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.05);
+      transition: opacity 0.2s ease;
+    }
+
+    /* Spindle center hole */
+    .vinyl-frame::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 18px;
+      height: 18px;
+      background: #111827;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 4px rgba(0,0,0,0.5);
+      z-index: 2;
+    }
+
+    /* Running animation when card is active */
+    .card.is-playing .vinyl-frame {
+      animation-play-state: running;
+    }
+
+    /* Circular Play/Pause Action Button */
+    .play-btn-overlay {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #2563eb; /* Primary accent blue */
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+      z-index: 3;
+    }
+
+    .play-btn-overlay:hover {
+      transform: scale(1.1);
+      background: #1d4ed8;
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-left: 12px solid #ffffff;
+      margin-left: 3px;
+    }
+
+    .pause-icon {
+      display: none;
+      gap: 3px;
+      height: 12px;
+    }
+
+    .pause-icon span {
+      width: 3.5px;
+      height: 100%;
+      background: white;
+      border-radius: 1px;
+    }
+
+    .card.is-playing .play-icon {
+      display: none;
+    }
+
+    .card.is-playing .pause-icon {
+      display: flex;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.4rem;
+    }
+
+    .card h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: 1.1rem;
+      line-height: 1.35;
+    }
+
+    .team-badge {
+      font-size: 0.74rem;
+      background: #e2e8f0;
+      color: #475569;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
+    .card .team {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .card p {
+      font-size: 0.91rem;
+      color: #334155;
+      margin: 0 0 1rem;
+      flex-grow: 1;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin: 0.8rem 0;
+    }
+
+    .tag {
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 0.74rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.8rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.84rem;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Sound indicator in card title */
+    .card-sound-badge {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      height: 14px;
+      padding: 2px 6px;
+      background: var(--primary);
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .card.is-playing .card-sound-badge {
+      display: flex;
+    }
+
+    .card-sound-badge span {
+      display: block;
+      width: 2px;
+      height: 100%;
+      background: white;
+      border-radius: 1px;
+      animation: mini-bounce 0.8s infinite alternate ease-in-out;
+    }
+
+    .card-sound-badge span:nth-child(1) { animation-delay: 0.1s; }
+    .card-sound-badge span:nth-child(2) { animation-delay: 0.3s; }
+    .card-sound-badge span:nth-child(3) { animation-delay: 0.2s; }
+
+    @keyframes mini-bounce {
+      0% { height: 2px; }
+      100% { height: 12px; }
+    }
+
+    /* ------------------------------------------
+       FLOATING AUDIO WIDGET
+       ------------------------------------------ */
+    #audio-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 18px;
+      border-radius: 50px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 1000;
+      transition: transform 0.2s ease, background 0.2s ease;
+      user-select: none;
+    }
+
+    #audio-widget:hover {
+      transform: scale(1.03);
+      background: var(--primary-dark);
+    }
+
+    .floating-vinyl {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #a49665 20%, #111827 21%, #1f2937 40%, #111827 41%, #1f2937 70%, #000 71%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      flex-shrink: 0;
+      animation: spin 3.5s linear infinite;
+      animation-play-state: paused;
+    }
+
+    .floating-vinyl::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .floating-vinyl.playing {
+      animation-play-state: running;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .widget-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+
+    .widget-info .title {
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .widget-info .subtitle {
+      font-size: 0.72rem;
+      opacity: 0.85;
+      font-weight: 400;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .equalizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 18px;
+    }
+
+    .equalizer .bar {
+      width: 3px;
+      height: 3px;
+      background: #ffffff;
+      border-radius: 2px;
+      transition: height 0.2s ease;
+    }
+
+    .equalizer.playing .bar {
+      animation: bar-bounce 0.9s infinite ease-in-out alternate;
+    }
+
+    .equalizer.playing .bar:nth-child(1) { animation-delay: 0.1s; }
+    .equalizer.playing .bar:nth-child(2) { animation-delay: 0.35s; }
+    .equalizer.playing .bar:nth-child(3) { animation-delay: 0.2s; }
+    .equalizer.playing .bar:nth-child(4) { animation-delay: 0.45s; }
+
+    @keyframes bar-bounce {
+      0% { height: 3px; }
+      50% { height: 18px; }
+      100% { height: 8px; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Databases & Cloud for AI — Project Showcase</h1>
+    <p>ITAI 4160 / 5160 &middot; Department of Machine Learning &middot; College of Computing and Informatics</p>
+    <div class="meta-info">Instructor: Dr. Qiong Cheng (qcheng1@charlotte.edu) &middot; UNC Charlotte</div>
+    <div class="badge">Session Date: December 2026 | Industry Demo & Poster Session</div>
+  </header>
+
+  <div class="container">
+    <h2 class="section-title">Welcome Industry Evaluators</h2>
+    <div class="instruction-note">
+      💡 <strong>Interactive Demo:</strong> Click any project's play button or card to inspect their architecture and hear their session audio.
+    </div>
+
+    <!-- Project Cards Grid -->
+    <h2 class="section-title">Student Project Briefs (7 Teams)</h2>
+    <div class="grid" id="project-grid">
+
+      <!-- Team 1 -->
+      <div class="card" onclick="selectProject(this, 'Team 1: RAEJ', 'teams/raej/team1-music.mp3')">
+        <div>
+          <!-- Circular Architecture & Vinyl Player -->
+          <div class="card-media-wrapper">
+            <div class="vinyl-wrapper">
+              <div class="vinyl-frame">
+                <!-- Replace 'images/arch-team1.png' with your team architecture graphic -->
+                <img src="teams/raej/team1-story.png" alt="Team 1 Architecture">
+              </div>
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
+                <div class="play-icon"></div>
+                <div class="pause-icon"><span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-header">
+            <h3><span class="team-badge">Team 1</span> RAEJ: LLM Translation for Languages Without Parallel Data</h3>
+            <div class="card-sound-badge"><span></span><span></span><span></span></div>
+          </div>
+          <div class="team">Alec Pike, Ryan Brown, Eric Medlock (Lead), Justin MacCreery</div>
+          <p>Enables translation for low-resource and constructed languages using RAG semantic search over grammar and lexicons without parallel training text.</p>
+          <div class="tags">
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">pgvector</span>
+            <span class="tag">LangChain</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="links" onclick="event.stopPropagation();">
+          <a href="teams/raej/team1-brief.pdf">Poster PDF</a>
+          <a href="teams/raej/team1-arch.pdf">Architecture</a>
+          <a href="https://github.com/ericmedlock/itcs4160-5160-RAEJ" target="_blank">Git Repo (private)</a>
+        </div>
+      </div>
+
+      <!-- Team 2 -->
+      <div class="card" onclick="selectProject(this, 'Team 2: MCP Sentinel', 'teams/mcp-sentinel/team2-music.mp3')">
+        <div>
+          <div class="card-media-wrapper">
+            <div class="vinyl-wrapper">
+              <div class="vinyl-frame">
+                <img src="teams/mcp-sentinel/team2-story.png" alt="Team 2 Architecture">
+              </div>
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
+                <div class="play-icon"></div>
+                <div class="pause-icon"><span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-header">
+            <h3><span class="team-badge">Team 2</span> MCP SENTINEL: AI Security Intelligence for MCP Servers</h3>
+            <div class="card-sound-badge"><span></span><span></span><span></span></div>
+          </div>
+          <div class="team">Sana Shaik, Sahir Shaik, Shreem Dixit, Dias Utebekov (Lead)</div>
+          <p>Centralized risk intelligence and vulnerability discovery platform monitoring third-party Model Context Protocol (MCP) servers and dependencies.</p>
+          <div class="tags">
+            <span class="tag">PostgreSQL 17</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Streamlit</span>
+            <span class="tag">OSV.dev</span>
+            <span class="tag">Docker Compose</span>
+          </div>
+        </div>
+        <div class="links" onclick="event.stopPropagation();">
+          <a href="teams/mcp-sentinel/team2-brief.pdf">Poster PDF</a>
+          <a href="teams/mcp-sentinel/team2-arch.pdf">Architecture</a>
+          <a href="https://github.com/vokebetu/MCP-Sentinel" target="_blank">Git Repo (private)</a>
+        </div>
+      </div>
+
+      <!-- Team 3 -->
+      <div class="card" onclick="selectProject(this, 'Team 3: ClassWizard', 'teams/class-wizard/team3-music.mp3')">
+        <div>
+          <div class="card-media-wrapper">
+            <div class="vinyl-wrapper">
+              <div class="vinyl-frame">
+                <img src="teams/class-wizard/team3-story.png" alt="Team 3 Architecture">
+              </div>
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
+                <div class="play-icon"></div>
+                <div class="pause-icon"><span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-header">
+            <h3><span class="team-badge">Team 3</span> ClassWizard: Intelligent Academic Scheduling & Planning</h3>
+            <div class="card-sound-badge"><span></span><span></span><span></span></div>
+          </div>
+          <div class="team">Akshat Kumar, Caleb Richardson (Lead), Jackson Redman, Scott Do</div>
+          <p>Career-aware academic course recommendation platform linking DegreeWorks audits and UNC Charlotte syllabi to O*NET career skill graphs.</p>
+          <div class="tags">
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">pgvector</span>
+            <span class="tag">Neo4j</span>
+            <span class="tag">Redis</span>
+            <span class="tag">FastAPI</span>
+          </div>
+        </div>
+        <div class="links" onclick="event.stopPropagation();">
+          <a href="teams/class-wizard/team3-brief.pdf">Poster PDF</a>
+          <a href="teams/class-wizard/team3-arch.pdf">Architecture</a>
+          <a href="https://github.com/jrcalgo/ClassWizard" target="_blank">Git Repo (private)</a>
+        </div>
+      </div>
+
+      <!-- Team 4 -->
+      <div class="card" onclick="selectProject(this, 'Team 4: Financial Literacy', 'teams/financial-literacy/team4-music.mp3')">
+        <div>
+          <div class="card-media-wrapper">
+            <div class="vinyl-wrapper">
+              <div class="vinyl-frame">
+                <img src="teams/financial-literacy/team4-story.png" alt="Team 4 Architecture">
+              </div>
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
+                <div class="play-icon"></div>
+                <div class="pause-icon"><span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-header">
+            <h3><span class="team-badge">Team 4</span> Financial Literacy Service: Market Context for Beginners</h3>
+            <div class="card-sound-badge"><span></span><span></span><span></span></div>
+          </div>
+          <div class="team">Josh Marsico (Lead), Jayden Parsons, Himaja Goda, Michael Simms</div>
+          <p>AI-driven financial analytics engine providing simplified market context, news deduplication, and citation-backed RAG insights for novice investors.</p>
+          <div class="tags">
+            <span class="tag">PostgreSQL 16</span>
+            <span class="tag">pgvector</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">React</span>
+            <span class="tag">Redis</span>
+          </div>
+        </div>
+        <div class="links" onclick="event.stopPropagation();">
+          <a href="teams/financial-literacy/team4-brief.pdf">Poster PDF</a>
+          <a href="teams/financial-literacy/team4-arch.pdf">Architecture</a>
+          <a href="https://github.com/jmarsicdev/financial-literacy-project" target="_blank">Git Repo (private)</a>
+        </div>
+      </div>
+
+      <!-- Team 5 -->
+      <div class="card" onclick="selectProject(this, 'Team 5: FitWise AI', 'teams/fitwise-ai/team5-music.mp3')">
+        <div>
+          <div class="card-media-wrapper">
+            <div class="vinyl-wrapper">
+              <div class="vinyl-frame">
+                <img src="teams/fitwise-ai/team5-story.png" alt="Team 5 Architecture">
+              </div>
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
+                <div class="play-icon"></div>
+                <div class="pause-icon"><span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-header">
+            <h3><span class="team-badge">Team 5</span> FitWise AI: Personalized Gym Coaching & Prescriptions</h3>
+            <div class="card-sound-badge"><span></span><span></span><span></span></div>
+          </div>
+          <div class="team">Josiah Duran (Co-Lead), Ali Chaaraoui (Co-Lead), Raymundo Munoz Cuevas, Essey Beraki</div>
+          <p>Personalized workout prescription system learning from Fitbit telemetry, tracking per-muscle fatigue ledgers, and predicting strength plateaus.</p>
+          <div class="tags">
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">PySpark</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">React</span>
+          </div>
+        </div>
+        <div class="links" onclick="event.stopPropagation();">
+          <a href="teams/fitwise-ai/team5-brief.pdf">Poster PDF</a>
+          <a href="teams/fitwise-ai/team5-arch.pdf">Architecture</a>
+          <a href="https://github.com/UNCC-ITCS-AI-DB-Cloud-Fall2026/itai-databases-and-cloud-for-ai-team-project-sprint2-group-5" target="_blank">Git Repo (private)</a>
+        </div>
+      </div>
+
+      <!-- Team 6 -->
+      <div class="card" onclick="selectProject(this, 'Team 6: S-Card', 'teams/scard/team6-music.mp3')">
+        <div>
+          <div class="card-media-wrapper">
+            <div class="vinyl-wrapper">
+              <div class="vinyl-frame">
+                <img src="teams/scard/team6-story.png" alt="Team 6 Architecture">
+              </div>
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
+                <div class="play-icon"></div>
+                <div class="pause-icon"><span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-header">
+            <h3><span class="team-badge">Team 6</span> S-Card: Personalized Local Spam Protection</h3>
+            <div class="card-sound-badge"><span></span><span></span><span></span></div>
+          </div>
+          <div class="team">Rithvik Gottumukkala (Lead), Smriti Bhemireddy, Connor Kelly, Andrew Gallegos Garcia, Dash Doubleday</div>
+          <p>On-device, privacy-preserving SMS/email spam filter using local logistic regression inference, encrypted preference profiles, and reversible quarantine.</p>
+          <div class="tags">
+            <span class="tag">PostgreSQL 17</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">IndexedDB</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="links" onclick="event.stopPropagation();">
+          <a href="teams/scard/team6-brief.pdf">Poster PDF</a>
+          <a href="teams/scard/team6-arch.pdf">Architecture</a>
+          <a href="https://github.com/UNCC-ITCS-AI-DB-Cloud-Fall2026/itai-databases-and-cloud-for-ai-team-project-sprint2-group-6" target="_blank">Git Repo (private)</a>
+        </div>
+      </div>
+
+      <!-- Team 7 -->
+      <div class="card" onclick="selectProject(this, 'Team 7: CoursePilot', 'teams/course-pilot/team7-music.mp3')">
+        <div>
+          <div class="card-media-wrapper">
+            <div class="vinyl-wrapper">
+              <div class="vinyl-frame">
+                <img src="teams/course-pilot/team7-story.png" alt="Team 7 Architecture">
+              </div>
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
+                <div class="play-icon"></div>
+                <div class="pause-icon"><span></span><span></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-header">
+            <h3><span class="team-badge">Team 7</span> CoursePilot: Autonomous Academic Advising Assistant</h3>
+            <div class="card-sound-badge"><span></span><span></span><span></span></div>
+          </div>
+          <div class="team">Cayman Powell (Lead), Mujtaba Ali Khan, Alexis Arenas-Villalba</div>
+          <p>College of Computing and Informatics academic advising assistant indexing 280+ syllabi and university policies for source-traceable degree guidance.</p>
+          <div class="tags">
+            <span class="tag">Amazon RDS</span>
+            <span class="tag">pgvector</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="links" onclick="event.stopPropagation();">
+          <a href="teams/course-pilot/team7-brief.pdf">Poster PDF</a>
+          <a href="teams/course-pilot/team7-arch.pdf">Architecture</a>
+          <a href="https://github.com/caymanpowell/CoursePilot" target="_blank">Git Repo (private)</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLOATING WIDGET -->
+  <div id="audio-widget" onclick="togglePlayback()">
+    <div id="floating-vinyl" class="floating-vinyl"></div>
+    <div class="widget-info">
+      <span class="title" id="player-title">Audio Paused</span>
+      <span class="subtitle" id="player-subtitle">Click a card to play</span>
+    </div>
+    <div class="equalizer" id="equalizer">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="bg-audio" loop preload="auto">
+    <source id="audio-source" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/ogg">
+  </audio>
+
+  <footer>
+    &copy; 2026 Department of Machine Learning &middot; College of Computing and Informatics &middot; UNC Charlotte
+  </footer>
+
+  <script>
+    const audio = document.getElementById('bg-audio');
+    const audioSource = document.getElementById('audio-source');
+    const floatingVinyl = document.getElementById('floating-vinyl');
+    const equalizer = document.getElementById('equalizer');
+    const playerTitle = document.getElementById('player-title');
+    const playerSubtitle = document.getElementById('player-subtitle');
+
+    let currentCard = null;
+    let currentTrack = null;
+
+    // Handles project selection and per-project audio switching
+    function selectProject(cardElement, projectName, audioFile) {
+      // If clicking the card that is already playing, toggle pause/play
+      if (currentCard === cardElement && !audio.paused) {
+        pauseAudio();
+        return;
+      }
+
+      // If clicking another card while one is active, unmark the old one
+      if (currentCard && currentCard !== cardElement) {
+        currentCard.classList.remove('is-playing');
+      }
+
+      currentCard = cardElement;
+      currentCard.classList.add('is-playing');
+
+      playerTitle.innerText = "Playing Session Audio";
+      playerSubtitle.innerText = projectName;
+
+      // Switch audio track if specified and different
+      if (audioFile && currentTrack !== audioFile) {
+        currentTrack = audioFile;
+        // Fallback to ambient sound if local custom file isn't uploaded yet
+        audio.src = audioFile;
+        audio.onerror = () => {
+          console.warn("Custom audio not found, falling back to ambient track.");
+          audio.src = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3";
+          audio.play().catch(() => {});
+        };
+      }
+
+      playAudio();
+    }
+
+    function playAudio() {
+      audio.play().then(() => {
+        floatingVinyl.classList.add('playing');
+        equalizer.classList.add('playing');
+        playerTitle.innerText = "Playing Session Audio";
+      }).catch(err => {
+        console.warn("Audio playback interrupted or blocked:", err);
+      });
+    }
+
+    function pauseAudio() {
+      audio.pause();
+      floatingVinyl.classList.remove('playing');
+      equalizer.classList.remove('playing');
+      playerTitle.innerText = "Audio Paused";
+      if (currentCard) {
+        currentCard.classList.remove('is-playing');
+        currentCard = null;
+      }
+    }
+
+    // Floating button controls
+    function togglePlayback() {
+      if (audio.paused) {
+        if (!currentCard) {
+          const firstCard = document.querySelector('.card');
+          selectProject(firstCard, 'Team 1: RAEJ', 'teams/raej/team1-music.mp3');
+        } else {
+          currentCard.classList.add('is-playing');
+          playAudio();
+        }
+      } else {
+        pauseAudio();
+      }
+    }
+  </script> 
+</body>
+</html>
