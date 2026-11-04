@@ -478,9 +478,9 @@
   </header>
 
   <div class="container">
-    <h2 class="section-title">Welcome Professional Evaluators</h2>
+    <h2 class="section-title">Welcome to the Project Showcase</h2>
     <div class="instruction-note">
-      💡 <strong>Interactive Demo:</strong> Click any project's play button or card to inspect their architecture and hear their session audio.
+      💡 <strong>Interactive Demo:</strong> Click any project's play button or card to inspect their architecture and hear their audio.
     </div>
 
     <!-- Project Cards Grid -->
@@ -488,7 +488,7 @@
     <div class="grid" id="project-grid">
 
       <!-- Team 1 -->
-      <div class="card" onclick="selectProject(this, 'Team 1: RAEJ', 'teams/raej/team1-music.mp3')">
+      <div class="card" onclick="selectProject(this, 'Team 1: RAEJ', 'teams/raej/team1-music.m4a')">
         <div>
           <!-- Circular Architecture & Vinyl Player -->
           <div class="card-media-wrapper">
@@ -497,10 +497,10 @@
                 <!-- Replace 'images/arch-team1.png' with your team architecture graphic -->
                 <img src="teams/raej/team1-story.png" alt="Team 1 Architecture">
               </div>
-              <!-- <div class="play-btn-overlay" title="Play / Pause Team Audio">
+               <div class="play-btn-overlay" title="Play / Pause Team Audio">
                 <div class="play-icon"></div>
                 <div class="pause-icon"><span></span><span></span></div>
-              </div> -->
+              </div> 
             </div>
           </div>
 
@@ -526,17 +526,17 @@
       </div>
 
       <!-- Team 2 -->
-      <div class="card" onclick="selectProject(this, 'Team 2: MCP Sentinel', 'teams/mcp-sentinel/team2-music.mp3')">
+      <div class="card" onclick="selectProject(this, 'Team 2: MCP Sentinel', 'teams/mcp-sentinel/team2-music.m4a')">
         <div>
           <div class="card-media-wrapper">
             <div class="vinyl-wrapper">
               <div class="vinyl-frame">
                 <img src="teams/mcp-sentinel/team2-story.png" alt="Team 2 Architecture">
               </div>
-              <!-- <div class="play-btn-overlay" title="Play / Pause Team Audio">
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
                 <div class="play-icon"></div>
                 <div class="pause-icon"><span></span><span></span></div>
-              </div> -->
+              </div> 
             </div>
           </div>
 
@@ -562,17 +562,17 @@
       </div>
 
       <!-- Team 3 -->
-      <div class="card" onclick="selectProject(this, 'Team 3: ClassWizard', 'teams/class-wizard/team3-music.mp3')">
+      <div class="card" onclick="selectProject(this, 'Team 3: ClassWizard', 'teams/class-wizard/team3-music.m4a')">
         <div>
           <div class="card-media-wrapper">
             <div class="vinyl-wrapper">
               <div class="vinyl-frame">
                 <img src="teams/class-wizard/team3-story.png" alt="Team 3 Architecture">
               </div>
-              <!-- <div class="play-btn-overlay" title="Play / Pause Team Audio">
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
                 <div class="play-icon"></div>
                 <div class="pause-icon"><span></span><span></span></div>
-              </div> -->
+              </div>
             </div>
           </div>
 
@@ -598,17 +598,17 @@
       </div>
 
       <!-- Team 4 -->
-      <div class="card" onclick="selectProject(this, 'Team 4: Financial Literacy', 'teams/financial-literacy/team4-music.mp3')">
+      <div class="card" onclick="selectProject(this, 'Team 4: Financial Literacy', 'teams/financial-literacy/team4-music.m4a')">
         <div>
           <div class="card-media-wrapper">
             <div class="vinyl-wrapper">
               <div class="vinyl-frame">
                 <img src="teams/financial-literacy/team4-story.png" alt="Team 4 Architecture">
               </div>
-              <!-- <div class="play-btn-overlay" title="Play / Pause Team Audio">
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
                 <div class="play-icon"></div>
                 <div class="pause-icon"><span></span><span></span></div>
-              </div> -->
+              </div>
             </div>
           </div>
 
@@ -634,17 +634,17 @@
       </div>
 
       <!-- Team 5 -->
-      <div class="card" onclick="selectProject(this, 'Team 5: FitWise AI', 'teams/fitwise-ai/team5-music.mp3')">
+      <div class="card" onclick="selectProject(this, 'Team 5: FitWise AI', 'teams/fitwise-ai/team5-music.m4a')">
         <div>
           <div class="card-media-wrapper">
             <div class="vinyl-wrapper">
               <div class="vinyl-frame">
                 <img src="teams/fitwise-ai/team5-story.png" alt="Team 5 Architecture">
               </div>
-              <!-- <div class="play-btn-overlay" title="Play / Pause Team Audio">
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
                 <div class="play-icon"></div>
                 <div class="pause-icon"><span></span><span></span></div>
-              </div> -->
+              </div>
             </div>
           </div>
 
@@ -670,17 +670,17 @@
       </div>
 
       <!-- Team 6 -->
-      <div class="card" onclick="selectProject(this, 'Team 6: S-Card', 'teams/scard/team6-music.mp3')">
+      <div class="card" onclick="selectProject(this, 'Team 6: S-Card', 'teams/scard/team6-music.m4a')">
         <div>
           <div class="card-media-wrapper">
             <div class="vinyl-wrapper">
               <div class="vinyl-frame">
                 <img src="teams/scard/team6-story.png" alt="Team 6 Architecture">
               </div>
-              <!-- <div class="play-btn-overlay" title="Play / Pause Team Audio">
+              <div class="play-btn-overlay" title="Play / Pause Team Audio">
                 <div class="play-icon"></div>
                 <div class="pause-icon"><span></span><span></span></div>
-              </div> -->
+              </div>
             </div>
           </div>
 
@@ -797,10 +797,11 @@
   </div>
 
   <!-- Audio Element -->
-  <audio id="bg-audio" loop preload="auto">
+  <!-- <audio id="bg-audio" loop preload="auto">
     <source id="audio-source" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/ogg">
+  </audio> -->
+  <audio id="bg-audio" preload="metadata">
   </audio>
-
   <footer>
     &copy; 2026 Department of Machine Learning &middot; College of Computing and Informatics &middot; UNC Charlotte
   </footer>
@@ -818,7 +819,6 @@
 
     // Handles project selection and per-project audio switching
     function selectProject(cardElement, projectName, audioFile) {
-      /*
       // If clicking the card that is already playing, toggle pause/play
       if (currentCard === cardElement && !audio.paused) {
         pauseAudio();
@@ -841,6 +841,7 @@
         currentTrack = audioFile;
         // Fallback to ambient sound if local custom file isn't uploaded yet
         audio.src = audioFile;
+        audio.load();
         audio.onerror = () => {
           console.warn("Custom audio not found, falling back to ambient track.");
           audio.src = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3";
@@ -849,7 +850,6 @@
       }
 
       playAudio();
-      */
     }
 
     function playAudio() {
